@@ -7,14 +7,15 @@ import requests
 import sqlite3
 
 
-def linkshell_scrape(name: str):
+def cwls_linkshell_scrape(name: str):
     conn = sqlite3.connect('linkshell.db')
     c = conn.cursor()
     c.execute('''
     CREATE TABLE IF NOT EXISTS linkshells (
         id TEXT PRIMARY KEY,
         name TEXT,
-        server TEXT
+        server TEXT,
+        type TEXT
     )
     ''')
     
@@ -63,7 +64,7 @@ def linkshell_scrape(name: str):
                 exists = c.fetchone() is not None
                 if exists:
                     continue
-                c.execute("INSERT OR IGNORE INTO linkshells (id, name, server) VALUES (?, ?, ?)", (ls_id, linkshell_server, name))
+                c.execute("INSERT OR IGNORE INTO linkshells (id, name, server, type) VALUES (?, ?, ?, ?)", (ls_id, linkshell_server, name, "cwls"))
                 print(f"ID: {ls_id} Server: {linkshell_server}")
                 
                 # get characters
@@ -86,9 +87,5 @@ def linkshell_scrape(name: str):
             conn.commit()
     conn.close()
 
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    linkshell_scrape('aether')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    cwls_linkshell_scrape('aether')
