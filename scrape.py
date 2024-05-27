@@ -30,6 +30,7 @@ def cwls_linkshell_scrape(name: str):
         FOREIGN KEY (linkshell) REFERENCES linkshells(id) ON DELETE CASCADE
     )
     ''')
+    print("tables created")
     alphabets = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', ':', "!", "?"]
     # Generate singletons
     singletons = [(x,) for x in alphabets]  # Convert to tuples to match the format of pairs and triplets
@@ -101,4 +102,5 @@ def cwls_linkshell_scrape(name: str):
     conn.close()
 
 if __name__ == '__main__':
+    print("Starting scrape")
     cwls_linkshell_scrape('aether')
