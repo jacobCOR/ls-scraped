@@ -53,9 +53,12 @@ def cwls_linkshell_scrape(name: str):
                 try: 
                     page = requests.get(url)
                 except:
+                    print("Error1")
                     sleep(n*10)
                 else:
                     break
+            else:
+                continue
             if page.status_code != 200:
                 break
             soup = BeautifulSoup(page.content, 'html.parser')
@@ -80,9 +83,12 @@ def cwls_linkshell_scrape(name: str):
                     try: 
                         characters = requests.get(f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/{ls_id}/")
                     except:
+                        print("Error2")
                         sleep(n*10)
                     else:
                         break
+                else:
+                    continue
                 character_soup = BeautifulSoup(characters.content, 'html.parser')
                 character_list = character_soup.find_all('div', class_='entry')
                 for character in character_list:
