@@ -45,7 +45,7 @@ def cwls_linkshell_scrape(name: str):
 # Combine all into one variable
     all_combinations = singletons + pairs + triplets
     for keyword in sample(all_combinations,len(all_combinations)):
-        keyword = "bei"
+        keyword = ''.join(keyword)
         print(f"Keyword parsing: {keyword}")
         n = 0
         while n <= 20:
