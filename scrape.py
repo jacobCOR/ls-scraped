@@ -1,5 +1,5 @@
 import itertools
-from random import random
+from random import random, sample
 from time import sleep, time
 
 from bs4 import BeautifulSoup
@@ -42,12 +42,15 @@ def cwls_linkshell_scrape(name: str):
 
 # Combine all into one variable
     all_combinations = singletons + pairs + triplets
-    for keyword in all_combinations:
+    for keyword in sample(all_combinations,len(all_combinations)):
         keyword = ''.join(keyword)
         n = 0
         while n <= 20:
             url = f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/?q={keyword}&dcname={name.capitalize()}&character_count=&page={n}&order="
-            page = requests.get(url)
+            try:
+                page = requests.get(url)
+            except:
+                sleep(5)
             if page.status_code != 200:
                 break
             soup = BeautifulSoup(page.content, 'html.parser')
@@ -68,7 +71,10 @@ def cwls_linkshell_scrape(name: str):
                 print(f"ID: {ls_id} Server: {linkshell_server}")
                 
                 # get characters
-                characters = requests.get(f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/{ls_id}/")
+                try: 
+                    characters = requests.get(f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/{ls_id}/")
+                except:
+                    sleep(5)
                 character_soup = BeautifulSoup(characters.content, 'html.parser')
                 character_list = character_soup.find_all('div', class_='entry')
                 for character in character_list:
