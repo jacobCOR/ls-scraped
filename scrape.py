@@ -8,6 +8,7 @@ import sqlite3
 
 
 def cwls_linkshell_scrape(name: str):
+    calc = 0
     conn = sqlite3.connect('linkshell.db')
     c = conn.cursor()
     c.execute('''
@@ -60,6 +61,7 @@ def cwls_linkshell_scrape(name: str):
             else:
                 continue
             if page.status_code != 200:
+                n+=1
                 break
             soup = BeautifulSoup(page.content, 'html.parser')
             linkshells = soup.find_all('div', class_='entry')
