@@ -45,17 +45,17 @@ def cwls_linkshell_scrape(name: str):
 # Combine all into one variable
     all_combinations = singletons + pairs + triplets
     for keyword in sample(all_combinations,len(all_combinations)):
-        keyword = ''.join(keyword)
+        keyword = "bei"
         print(f"Keyword parsing: {keyword}")
         n = 0
         while n <= 20:
             url = f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/?q={keyword}&dcname={name.capitalize()}&character_count=&page={n}&order="
-            for n in range(10):
+            for x in range(10):
                 try: 
                     page = requests.get(url)
                 except:
                     print("Error1")
-                    sleep(n*10)
+                    sleep(x*10)
                 else:
                     break
             else:
@@ -81,12 +81,12 @@ def cwls_linkshell_scrape(name: str):
                 print(f"ID: {ls_id} Server: {linkshell_server}")
                 
                 # get characters
-                for n in range(10):
+                for g in range(10):
                     try: 
                         characters = requests.get(f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/{ls_id}/")
                     except:
                         print("Error2")
-                        sleep(n*10)
+                        sleep(g*10)
                     else:
                         break
                 else:
