@@ -44,6 +44,7 @@ def cwls_linkshell_scrape(name: str):
     all_combinations = singletons + pairs + triplets
     for keyword in sample(all_combinations,len(all_combinations)):
         keyword = ''.join(keyword)
+        print(f"Keyword parsing: {keyword}")
         n = 0
         while n <= 20:
             url = f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/?q={keyword}&dcname={name.capitalize()}&character_count=&page={n}&order="
