@@ -47,10 +47,13 @@ def cwls_linkshell_scrape(name: str):
         n = 0
         while n <= 20:
             url = f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/?q={keyword}&dcname={name.capitalize()}&character_count=&page={n}&order="
-            try:
-                page = requests.get(url)
-            except:
-                sleep(5)
+            for n in range(10):
+                try: 
+                    page = requests.get(url)
+                except:
+                    sleep(n)
+                else:
+                    break
             if page.status_code != 200:
                 break
             soup = BeautifulSoup(page.content, 'html.parser')
@@ -71,10 +74,13 @@ def cwls_linkshell_scrape(name: str):
                 print(f"ID: {ls_id} Server: {linkshell_server}")
                 
                 # get characters
-                try: 
-                    characters = requests.get(f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/{ls_id}/")
-                except:
-                    sleep(5)
+                for n in range(10):
+                    try: 
+                        characters = requests.get(f"https://na.finalfantasyxiv.com/lodestone/crossworld_linkshell/{ls_id}/")
+                    except:
+                        sleep(n)
+                    else:
+                        break
                 character_soup = BeautifulSoup(characters.content, 'html.parser')
                 character_list = character_soup.find_all('div', class_='entry')
                 for character in character_list:
